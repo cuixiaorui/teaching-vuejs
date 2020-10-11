@@ -1,15 +1,18 @@
 <template>
   <container>
-    <StartPage></StartPage>
+    <GamePage></GamePage>
+    <!-- <StartPage></StartPage> -->
   </container>
 </template>
 
 <script>
-import StartPage from "./pages/StartPage";
+// import StartPage from "./pages/StartPage";
+import GamePage from "./pages/GamePage";
 export default {
   name: "App",
   components: {
-    StartPage,
+    GamePage,
+    // StartPage,
   },
 };
 </script>
