@@ -16,7 +16,8 @@ export default {
     // StartPage,
   },
   setup() {
-    const currentPageName = ref("StartPage");
+    // const currentPageName = ref("StartPage");
+    const currentPageName = ref("GamePage");
     const handleChangePage = (pageName) => {
       currentPageName.value = pageName;
     };
