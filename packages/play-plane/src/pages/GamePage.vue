@@ -1,16 +1,17 @@
 <template>
   <container>
-    <sprite :texture="mapImg"></sprite>
+    <Map></Map>
   </container>
 </template>
 
 <script>
-import mapImg from "../assets/map.jpg";
+import Map from "../components/Map";
 export default {
+  components: {
+    Map,
+  },
   setup() {
-    return {
-      mapImg,
-    };
+    return {};
   },
 };
 </script>
