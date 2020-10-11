@@ -1,6 +1,5 @@
 <template>
   <container>
-    <!-- <GamePage></GamePage> -->
     <page @change-page="handleChangePage"></page>
   </container>
 </template>
@@ -12,14 +11,8 @@ import GamePage from "./pages/GamePage";
 import EndPage from "./pages/EndPage";
 export default {
   name: "App",
-  components: {
-    // GamePage,
-    // StartPage,
-  },
   setup() {
-    // const currentPageName = ref("StartPage");
-    const currentPageName = ref("GamePage");
-    // const currentPageName = ref("EndPage");
+    const currentPageName = ref("StartPage");
     const handleChangePage = (pageName) => {
       currentPageName.value = pageName;
     };
