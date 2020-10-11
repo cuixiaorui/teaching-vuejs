@@ -1,6 +1,6 @@
 // 实现基于 canvas 自定义的渲染器
 import { createRenderer } from "vue";
-import { Container } from "pixi.js";
+import { Container, Texture, Sprite } from "pixi.js";
 
 const renderer = createRenderer({
   createElement(type) {
@@ -8,6 +8,9 @@ const renderer = createRenderer({
     switch (type) {
       case "container":
         element = new Container();
+        break;
+      case "sprite":
+        element = new Sprite();
         break;
     }
 
@@ -25,6 +28,19 @@ const renderer = createRenderer({
   remove(el) {
     if (el && el.parent) {
       el.parent.removeChild(el);
+    }
+  },
+  patchProp(el, key, prevValue, nextValue) {
+    switch (key) {
+      case "texture":
+        el.texture = Texture.from(nextValue);
+        break;
+      case "onClick":
+        el.on("pointertap", nextValue);
+        break;
+      default:
+        el[key] = nextValue;
+        break;
     }
   },
 
