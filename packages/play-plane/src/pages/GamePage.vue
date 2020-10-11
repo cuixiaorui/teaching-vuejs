@@ -26,6 +26,7 @@ import EnemyPlane from "../components/EnemyPlane";
 import { usePlane } from "../game/Plane";
 import { useEnemyPlane } from "../game/EnemyPlane";
 import { useBullet } from "../game/Bullet";
+import { useFighting } from "../game/Fighting";
 export default {
   components: {
     Map,
@@ -41,6 +42,12 @@ export default {
       },
     });
     const { enemyPlanes } = useEnemyPlane();
+
+    useFighting({
+      plane: planeInfo,
+      enemyPlanes,
+      bullets,
+    });
 
     return {
       planeInfo,

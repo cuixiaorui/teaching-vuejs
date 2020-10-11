@@ -3,9 +3,11 @@ import { game } from "../game";
 
 export function useBullet() {
   const bullets = reactive([]);
+  const width = 61;
+  const height = 99;
 
   const addBullet = (info) => {
-    bullets.push(info);
+    bullets.push({ ...info, width, height });
   };
 
   // move

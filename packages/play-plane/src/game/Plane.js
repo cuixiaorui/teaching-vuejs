@@ -3,7 +3,9 @@ import { reactive } from "vue";
 export function usePlane({ attack }) {
   const planeInfo = reactive({
     x: 150,
-    y: 150,
+    y: 450,
+    width: 258,
+    height: 364,
   });
 
   const speed = 10;
