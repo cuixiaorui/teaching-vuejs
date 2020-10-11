@@ -8,29 +8,44 @@
       :x="enemy.x"
       :y="enemy.y"
     ></EnemyPlane>
+    <Bullet
+      v-for="(bullet, index) in bullets"
+      :key="index"
+      :x="bullet.x"
+      :y="bullet.y"
+    ></Bullet>
   </container>
 </template>
 
 <script>
 // import { reactive } from "vue";
+import Bullet from "../components/Bullet";
 import Map from "../components/Map";
 import Plane from "../components/Plane";
 import EnemyPlane from "../components/EnemyPlane";
 import { usePlane } from "../game/Plane";
 import { useEnemyPlane } from "../game/EnemyPlane";
+import { useBullet } from "../game/Bullet";
 export default {
   components: {
     Map,
     Plane,
     EnemyPlane,
+    Bullet,
   },
   setup() {
-    const { planeInfo } = usePlane();
+    const { bullets, addBullet } = useBullet();
+    const { planeInfo } = usePlane({
+      attack(info) {
+        addBullet(info);
+      },
+    });
     const { enemyPlanes } = useEnemyPlane();
 
     return {
       planeInfo,
       enemyPlanes,
+      bullets,
     };
   },
 };

@@ -1,6 +1,6 @@
 import { reactive } from "vue";
 
-export function usePlane() {
+export function usePlane({ attack }) {
   const planeInfo = reactive({
     x: 150,
     y: 150,
@@ -25,6 +25,17 @@ export function usePlane() {
 
       default:
         break;
+    }
+  });
+
+  // attack
+  window.addEventListener("keyup", (e) => {
+    if (e.code === "Space") {
+      attack &&
+        attack({
+          x: planeInfo.x + 100,
+          y: planeInfo.y,
+        });
     }
   });
 
