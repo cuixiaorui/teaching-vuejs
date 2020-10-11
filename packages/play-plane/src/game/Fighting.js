@@ -1,13 +1,15 @@
+import { onMounted, onUnmounted } from "vue";
 import { game } from "../game";
 import { hitTestObject } from "../utils";
-export function useFighting({ plane, enemyPlanes, bullets }) {
-  game.ticker.add(() => {
+export function useFighting({ plane, enemyPlanes, bullets, gameOver }) {
+  const handleTicker = () => {
     enemyPlanes.forEach((enemy) => {
       // 1. 我方飞机和敌方飞机的碰撞
       if (hitTestObject(enemy, plane)) {
         // game over
         console.log("hit");
         // 跳转到 游戏结束页面
+        gameOver && gameOver();
       }
     });
 
@@ -21,5 +23,13 @@ export function useFighting({ plane, enemyPlanes, bullets }) {
         }
       });
     });
+  };
+
+  onMounted(() => {
+    game.ticker.add(handleTicker);
+  });
+
+  onUnmounted(() => {
+    game.ticker.remove(handleTicker);
   });
 }

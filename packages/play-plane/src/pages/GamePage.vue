@@ -34,7 +34,7 @@ export default {
     EnemyPlane,
     Bullet,
   },
-  setup() {
+  setup(_, { emit }) {
     const { bullets, addBullet } = useBullet();
     const { planeInfo } = usePlane({
       attack(info) {
@@ -47,6 +47,9 @@ export default {
       plane: planeInfo,
       enemyPlanes,
       bullets,
+      gameOver() {
+        emit("change-page", "EndPage");
+      },
     });
 
     return {
