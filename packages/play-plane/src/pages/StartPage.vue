@@ -15,9 +15,9 @@
 import startPageImg from "../assets/start_page.jpg";
 import startBtnImg from "../assets/startBtn.png";
 export default {
-  setup() {
+  setup(_,{emit}) {
     const onClick = () => {
-      console.log("click");
+      emit("change-page","GamePage")
     };
 
     return {
