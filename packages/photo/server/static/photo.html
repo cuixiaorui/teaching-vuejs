@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/photo.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <!-- 展示相关 -->
+    <div class="container">
+      <div class="photoHeader">
+        <div class="imgContainer">
+          <img class="photoName" src="public/img/1.jpg" />
+        </div>
+        <div class="btnContainer">
+          <span class="photoTitle">相册名称</span>
+          <button class="mybtn">上传照片</button>
+        </div>
+      </div>
+
+      <div class="photoContainer">
+        <!-- <div class="photoItem">
+          <img src="img/Home.png" />
+          <span>
+            home
+          </span>
+        </div> -->
+      </div>
+    </div>
+    <!-- 上传相关 -->
+    <div class="masking">
+      <div class="addPhotoContainer"></div>
+      <div class="addController">
+        <h3 class="addTitle">
+          上传照片-普通上传(H5)<span class="close">╳</span>
+        </h3>
+        <div class="photoTitles">
+          <span class="uploadTo">上传到</span>
+          <div class="photoSelect">
+            <img class="showPhoto" src="public/img/1.jpg" />
+            相册名称
+          </div>
+        </div>
+
+        <!-- 上传按钮 -->
+        <div class="showContainer">
+          <div class="uploadContainer">
+            <span class="fileinput-button">
+              <span>上传图片</span>
+              <input class="imgFile" type="file" name="" multiple="multiple" />
+            </span>
+            <span class="hint">
+              按住Ctrl可多选
+            </span>
+          </div>
+        </div>
+
+        <!-- 显示待上传图片  -->
+        <div class="loadContainer">
+          <div class="wantUpload">
+            <!-- <div class="uploadPhotoItem">
+              <span class="myProgress">
+                <span class="plan"></span>
+                30%
+              </span>
+              <img src="public/img/1.jpg" />
+              <span class="pictureName">
+                home
+              </span>
+            </div> -->
+          </div>
+          <div class="addStyle">
+            <span class="fileinput-add">
+              <span></span>
+              <input class="imgFile-add" type="file" multiple="multiple" />
+            </span>
+          </div>
+          <!-- 开始上传按钮 -->
+          <div class="bottomStyle">
+            <span class="uploadBtn">开始上传</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.querySelector(".close").onclick = function () {
+      document.querySelector(".masking").style.display = "none";
+    };
+    document.querySelector(".mybtn").onclick = function () {
+      document.querySelector(".masking").style.display = "block";
+    };
+  </script>
+  <script src="js/main.js" type="module"></script>
+</html>

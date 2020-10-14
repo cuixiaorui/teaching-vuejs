@@ -1,0 +1,37 @@
+.loginContainer{
+    margin: 0 auto;
+    width: 600px;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    border: 1px solid;
+}
+.loginContainer input{
+    margin-bottom: 20px;
+}
+.loginStyle{
+    width: 160px;
+    height: 40px;
+    background: rgb(50,203,77);
+    color: white;
+    font-size: 17px;
+}
+.inputStyle{
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    outline: none;
+}
+
+.inputStyle:focus{
+    border: 1px solid rgb(50,203,77);
+}
+form{
+    position: relative;
+}
+.exchange{
+    position: absolute;
+    top:8px;
+    right: 65px;
+    color: red;
+}
