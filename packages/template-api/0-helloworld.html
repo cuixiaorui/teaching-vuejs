@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app" :test="myTest + 'vue---'">{{msg + "123" + "234"}}</div>
+    <script>
+      // 文本插值 -> {{}}
+      // v-bind 指令 -> 简写 -> :
+      // 允许写表达式
+
+      // console.log(Vue);
+      // hello world
+      // vue
+      // mvvm
+      // m -> model
+      // v -> view
+      // vm -> viewModel
+      // 1. 视图 view
+      // 2. model -> js 逻辑
+      // 3. 视图和model 绑定
+      //    视图和 model 层 之间的接口
+      // 开发思想
+      // 改变我们的数据逻辑
+      app = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello world",
+          myTest: "myTest111",
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <!-- <div id="app">{{msg.split("").reverse().join("")}}</div> -->
+    <div id="app">
+      {{reverseMsg}}
+
+      <br />
+
+      <!-- {{reverseMessage()}} -->
+    </div>
+    <script>
+      // 1. 代码的可读性
+      //    - 维护人？
+      //    - 可扩展性 也会很好
+      //    - 加班 效率
+      //       5  2 小时
+      // 计算属性
+      // 如何写好代码
+      // 1. 表达好代码的意图
+      //    - 命名
+      // 2. 没有重复
+      // 3. 写测试
+
+      // 2. 缓存
+      //   计算属性是依赖别的属性的属性 如果依赖的属性没有更新的话，那么当前属性就使用之前的值
+
+      // 3. 多对一的关系
+      //   多 指的是 依赖的属性
+      //   一只会产出一个属性
+      app = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello world",
+          count: 1,
+        },
+        methods: {
+          reverseMessage() {
+            console.log("reverseMessage");
+            return this.msg.split("").reverse().join("") + this.count;
+          },
+        },
+        computed: {
+          reverseMsg() {
+            // 怎么实现的
+            // 低层次代码
+            console.log("reverseMsg");
+            return this.msg.split("").reverse().join("") + this.count;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

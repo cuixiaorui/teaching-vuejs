@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      {{count}}
+      <!-- <button @click="handleClick">click</button> -->
+      <!-- <button @click="handleClick(1,$event)">click</button> -->
+      <!-- <button @click.once="count++">click</button> -->
+
+      <form action="">
+        <button @click.prevent="handleSubmit">submit</button>
+      </form>
+    </div>
+    <script>
+      // v-on 添加事件
+      // 简写 @
+      app = new Vue({
+        el: "#app",
+        data: {
+          count: 0,
+        },
+        methods: {
+          handleSubmit(e) {
+            
+            console.log("submit");
+          },
+          handleClick(type, e) {
+            console.log("click");
+            console.log(e);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

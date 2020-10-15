@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(item,index) in list" :key="item.id" v-if="item.age < 35">
+          {{index}} -- {{item.name}} -- {{item.age}}
+        </li>
+      </ul>
+
+      <ul>
+        <li v-for="(val,key,index) in users">
+          {{index}} - {{val.name}} - {{val.age}} - {{key}}
+        </li>
+      </ul>
+    </div>
+    <script>
+      // js  foreach for   for in
+      // vue 也有循环
+      // key -> 优化点
+      // diff 算法 key 为了快速查找元素
+      // 后端给我们前端  -》 id 唯一标识
+      app = new Vue({
+        el: "#app",
+        data: {
+          list: [
+            {
+              id: 1,
+              name: "海哥",
+              age: 30,
+            },
+
+            {
+              id: 2,
+              name: "钟老师",
+              age: 35,
+            },
+          ],
+          users: {
+            1: {
+              name: "海哥",
+              age: 30,
+            },
+
+            2: {
+              name: "钟老师哥",
+              age: 34,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

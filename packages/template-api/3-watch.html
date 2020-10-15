@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      {{count}}
+      <button @click="count++">click</button>
+      <br />
+      {{msg}} {{msg1}} {{msg2}} {{msg3}}
+    </div>
+    <script>
+      app = new Vue({
+        el: "#app",
+        data: {
+          count: 0,
+          msg: "hello",
+          msg1: "",
+          msg2: "",
+          msg3: "",
+          user: {
+            name: "海哥",
+          },
+        },
+        watch: {
+          user: {
+            deep: true,
+            handler(newValue) {
+              console.log(newValue);
+            },
+          },
+          // user(newValue) {
+          //   console.log(newValue);
+          // },
+          count: {
+            handler(newValue, oldValue) {
+              console.log(newValue, oldValue);
+              // 异步请求
+              // 副作用
+              // fetch(`http://baidu.com/q=${this.count}`)
+              this.msg1 = newValue + "1";
+              this.msg2 = newValue + "2";
+              this.msg3 = newValue + "3";
+            },
+            immediate: true,
+          },
+          // count(newValue, oldValue) {
+          //   console.log(newValue, oldValue);
+          //   // 异步请求
+          //   // 副作用
+          //   // fetch(`http://baidu.com/q=${this.count}`)
+          //   this.msg1 = newValue + "1";
+          //   this.msg2 = newValue + "2";
+          //   this.msg3 = newValue + "3";
+          // },
+          msg(newValue) {
+            // 1 对 多的关系
+            // 有多个属性 需要依赖一个属性
+            console.log(newValue);
+            this.msg1 = newValue + "1";
+            this.msg2 = newValue + "2";
+            this.msg3 = newValue + "3";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
