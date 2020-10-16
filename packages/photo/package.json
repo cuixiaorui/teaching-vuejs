@@ -16,9 +16,6 @@
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
-  "gitHooks": {
-    "commit-msg": "node scripts/verifyCommit.js"
-  },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
@@ -33,5 +30,8 @@
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1",
     "vue-template-compiler": "^2.6.11"
+  },
+  "gitHooks": {
+    "commit-msg": "node scripts/index.js"
   }
 }
