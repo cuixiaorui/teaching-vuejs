@@ -1,7 +1,7 @@
-export function h(type, props, children) {
+export function h(type, props, children = []) {
   return {
     type,
     props,
-    children: Array.isArray(children) ? children : children.toString(),
+    children: typeof children === "object" ? children : children.toString(),
   };
 }

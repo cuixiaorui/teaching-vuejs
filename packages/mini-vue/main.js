@@ -1,6 +1,7 @@
 // 响应式的支持
 import { reactive, watchEffect } from "./reactivity/index.js";
 import { h } from "./h.js";
+window.h = h;
 
 const App = {
   // template -> render
@@ -26,8 +27,9 @@ const App = {
     // rootContainer.append(countDiv);
 
     // return rootContainer;
-    return h("div", null, [
-      h("div", { testId: content.state.testId }, content.state.title),
+
+    return h("div", { testId: content.state.testId }, [
+      h("div", null, content.state.title),
       h("div", null, content.state.count),
       h(
         "button",
@@ -37,6 +39,9 @@ const App = {
         "click"
       ),
     ]);
+
+    // return h("div", null, content.state2.content);
+    // return h("div", null, content.state2.content);
   },
 
   setup() {
@@ -47,11 +52,22 @@ const App = {
       onClick() {
         state.testId = "hahah";
         state.count++;
+        console.log(state);
       },
+    });
+
+    window.state1 = reactive({
+      content: "hello",
+    });
+
+    window.state2 = reactive({
+      content: [h("p", null, "123")],
     });
 
     return {
       state,
+      state1,
+      state2,
     };
   },
 };
@@ -93,8 +109,9 @@ function diff(v1, v2) {
   // 2. 如果 tag 一样的话
   //    1. 要检测 props 哪些有变化
   //    2. 要检测 children  -》 特别复杂的
-  const { props: oldProps } = v1;
-  const { props: newProps, el } = v2;
+  v2.el = v1.el;
+  const { props: oldProps, el, children: oldChildren = [] } = v1;
+  const { props: newProps, children: newChildren = [] } = v2;
   if (v1.tag !== v2.tag) {
     v1.replaceWith(createElement(v2.tag));
   } else {
@@ -111,11 +128,69 @@ function diff(v1, v2) {
       // 遍历老节点 -》 新节点里面没有的话，那么都删除掉
       Object.keys(oldProps).forEach((key) => {
         if (!newProps[key]) {
-          el.removeAttribute(key);
+          patchProp(el, key, oldProps[key], null);
         }
       });
     }
+    // 对比 children
+
+    // newChildren -> string
+    // oldChildren -> string   oldChildren -> array
+
+    // newChildren -> array
+    // oldChildren -> string   oldChildren -> array
+    if (typeof newChildren === "string") {
+      if (typeof oldChildren === "string") {
+        if (newChildren !== oldChildren) {
+          setText(el, newChildren);
+        }
+      } else if (Array.isArray(oldChildren)) {
+        v1.el.textContent = newChildren;
+      }
+    } else if (Array.isArray(newChildren)) {
+      if (typeof oldChildren === "string") {
+        // 清空之前的数据
+        n1.el.innerHTML = "";
+        // 把所有的 children mount 出来
+        newChildren.forEach((vnode) => {
+          mountElement(vnode, el);
+        });
+      } else if (Array.isArray(oldChildren)) {
+        // a, b, c, d, e -> new
+        // a1,b1,c1,d1 -> old
+        // 如果 new 的多的话，那么创建一个新的
+
+        // a, b, c -> new
+        // a1,b1,c1,d1 -> old
+        // 如果 old 的多的话，那么把多的都删除掉
+        const length = Math.min(newChildren.length, oldChildren.length);
+        for (let i = 0; i < length; i++) {
+          const oldVnode = oldChildren[i];
+          const newVnode = newChildren[i];
+          // 可以十分复杂
+          diff(oldVnode, newVnode);
+        }
+
+        if (oldChildren.length > length) {
+          // 说明老的节点多
+          // 都删除掉
+          for (let i = length; i < oldChildren.length; i++) {
+            remove(oldChildren[i], el);
+          }
+        } else if (newChildren.length > length) {
+          // 说明new 的节点多
+          // 那么需要创建对应的节点
+          for (let i = length; i < newChildren.length; i++) {
+            mountElement(newChildren[i], el);
+          }
+        }
+      }
+    }
   }
+}
+
+function createText(text) {
+  return new Text(text);
 }
 
 function remove(el, parent) {
@@ -124,6 +199,10 @@ function remove(el, parent) {
 
 function createElement(type) {
   return document.createElement(type);
+}
+
+function setText(el, text) {
+  el.textContent = text;
 }
 
 function insert(el, parent) {
@@ -137,10 +216,13 @@ function patchProp(el, key, prevValue, nextValue) {
   // 3. on 后面的就是对应的事件名
   if (key.startsWith("on")) {
     const eventName = key.slice(2).toLocaleLowerCase();
-    console.log(eventName);
     el.addEventListener(eventName, nextValue);
   } else {
-    el.setAttribute(key, nextValue);
+    if (nextValue === null) {
+      el.removeAttribute(key, nextValue);
+    } else {
+      el.setAttribute(key, nextValue);
+    }
   }
 }
 
@@ -148,6 +230,7 @@ function mountElement(vnode, container) {
   // 渲染成真实的 dom 节点
 
   const el = (vnode.el = createElement(vnode.type));
+  console.log(vnode);
 
   // 处理 props
   if (vnode.props) {
@@ -158,14 +241,14 @@ function mountElement(vnode, container) {
   }
 
   // 要处理 children
-  if (typeof vnode.children === "string") {
-    const textNode = document.createTextNode(vnode.children);
-    console.log(textNode);
-    el.append(textNode);
-  } else if (Array.isArray(vnode.children)) {
+  if (Array.isArray(vnode.children)) {
     vnode.children.forEach((v) => {
       mountElement(v, el);
     });
+  } else {
+    const textNode = document.createTextNode(vnode.children);
+    console.log(textNode);
+    el.append(textNode);
   }
 
   insert(el, container);
