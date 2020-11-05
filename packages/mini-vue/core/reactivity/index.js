@@ -31,6 +31,7 @@
 // let update;
 // let state;
 
+// 收集依赖
 // function setChangeState(_update) {
 //   update = _update;
 // }
@@ -62,7 +63,6 @@ class Dep {
     // 收集依赖的容器
     this.effects = new Set();
   }
-
   // get value() {
   //   this.depend();
   //   return this.val;
@@ -72,7 +72,6 @@ class Dep {
   //   this.val = newVal;
   //   this.notice();
   // }
-
   depend() {
     if (currentEffect) {
       this.effects.add(currentEffect);
@@ -147,17 +146,17 @@ export function reactive(raw) {
   });
 }
 
-const state = reactive({
-  a: 10,
-});
+// const state = reactive({
+//   a: 10,
+// });
 
-let b;
-watchEffect(() => {
-  b = state.a * 10;
-  console.log(b);
-});
+// let b;
+// watchEffect(() => {
+//   b = state.a * 10;
+//   console.log(b);
+// });
 
-state.a = 20;
+// state.a = 20;
 
 // const dep = new Dep();
 
@@ -190,5 +189,4 @@ state.a = 20;
 // });
 
 // dep.value = 20;
-
 // dep.value = 30;
